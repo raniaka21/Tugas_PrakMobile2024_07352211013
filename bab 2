@@ -1,0 +1,71 @@
+// Kelas abstrak untuk Karyawan
+abstract class Karyawan {
+  String nama;
+  int umur;
+  String peran;
+  double produktivitas;
+
+  // Konstruktor untuk Karyawan
+  Karyawan(this.nama, this.umur, this.peran, this.produktivitas);
+
+  // Metode abstrak yang harus diimplementasikan oleh subclass
+  void bekerja();
+
+  // Metode untuk meningkatkan produktivitas
+  void tingkatkanProduktivitas() {
+    produktivitas += 10;
+    if (produktivitas > 100) {
+      produktivitas = 100; // Batasi produktivitas maksimal 100%
+    }
+  }
+
+  // Menampilkan status produktivitas
+  void tampilkanProduktivitas() {
+    print("Produktivitas $nama: ${produktivitas.toStringAsFixed(2)}%");
+  }
+}
+
+// Kelas untuk Karyawan Tetap (subclass dari Karyawan)
+class KaryawanTetap extends Karyawan {
+  // Konstruktor
+  KaryawanTetap(String nama, int umur, String peran, double produktivitas)
+      : super(nama, umur, peran, produktivitas);
+
+  // Implementasi metode bekerja() untuk Karyawan Tetap
+  @override
+  void bekerja() {
+    print('$nama bekerja sebagai Karyawan Tetap dengan kontrak jangka panjang.');
+    tingkatkanProduktivitas();  // Kenaikan produktivitas setiap kali bekerja
+  }
+}
+
+// Kelas untuk Karyawan Kontrak (subclass dari Karyawan)
+class KaryawanKontrak extends Karyawan {
+  // Konstruktor
+  KaryawanKontrak(String nama, int umur, String peran, double produktivitas)
+      : super(nama, umur, peran, produktivitas);
+
+  // Implementasi metode bekerja() untuk Karyawan Kontrak
+  @override
+  void bekerja() {
+    print('$nama bekerja sebagai Karyawan Kontrak dengan kontrak terbatas.');
+    tingkatkanProduktivitas();  // Kenaikan produktivitas setiap kali bekerja
+  }
+}
+
+void main() {
+  // Membuat objek Karyawan Tetap dan Karyawan Kontrak dengan produktivitas awal
+  var karyawanTetap = KaryawanTetap("Andi", 30, "Developer", 70.0);
+  var karyawanKontrak = KaryawanKontrak("Budi", 25, "Tester", 60.0);
+
+  // Menampilkan informasi dan memanggil metode bekerja()
+  print("Karyawan Tetap:");
+  print("Nama: ${karyawanTetap.nama}, Umur: ${karyawanTetap.umur}, Peran: ${karyawanTetap.peran}");
+  karyawanTetap.bekerja();  // Karyawan Tetap bekerja
+  karyawanTetap.tampilkanProduktivitas();  // Tampilkan produktivitas
+
+  print("\nKaryawan Kontrak:");
+  print("Nama: ${karyawanKontrak.nama}, Umur: ${karyawanKontrak.umur}, Peran: ${karyawanKontrak.peran}");
+  karyawanKontrak.bekerja();  // Karyawan Kontrak bekerja
+  karyawanKontrak.tampilkanProduktivitas();  // Tampilkan produktivitas
+}
